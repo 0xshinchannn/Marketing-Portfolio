@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Isabella Yu — Web3 Portfolio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f7f6f3;color:#1a1a1a;min-height:100vh;padding:2rem 1rem}
+.wrap{max-width:820px;margin:0 auto}
+nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;flex-wrap:wrap;gap:10px}
+.nav-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font-size:11px;padding:3px 12px;border-radius:20px;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;transition:all .15s}
+.tab.active{border-color:#aaa;background:#1a1a1a;color:#fff;font-weight:500}
+.pg{font-size:12px;color:#aaa}
+.slide{min-height:500px;animation:fadein .2s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+/* cover */
+.cover{padding:3rem 0 2rem}
+.cover .eyebrow{font-size:11px;color:#aaa;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+.cover h1{font-size:36px;font-weight:500;margin-bottom:.5rem;color:#111}
+.cover .sub{font-size:18px;color:#555;margin-bottom:.5rem}
+.cover .desc{font-size:13px;color:#aaa;margin-bottom:2.5rem}
+.tags{display:flex;gap:10px;flex-wrap:wrap}
+.tag{font-size:12px;padding:4px 14px;border-radius:20px;border:1px solid #e0e0e0;color:#777;background:#fff}
+/* overview */
+.section-title{font-size:20px;font-weight:500;margin-bottom:1.5rem;color:#111}
+.roles{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+.role-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;border:1px solid}
+.role-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.role-info{flex:1}
+.role-company{font-weight:500;font-size:15px}
+.role-title-txt{font-size:12px;margin-left:8px}
+.role-period{font-size:12px}
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.metric-card{background:#fff;border-radius:8px;padding:1rem;border:1px solid #eee}
+.metric-label{font-size:11px;color:#aaa;margin-bottom:4px}
+.metric-val{font-size:22px;font-weight:500;color:#111}
+/* case */
+.case-tag{font-size:11px;padding:3px 12px;border-radius:20px;font-weight:500;display:inline-block;margin-bottom:.75rem;border:1px solid}
+.case-title{font-size:26px;font-weight:500;margin-bottom:.25rem;color:#111}
+.case-role{font-size:13px;color:#aaa;margin-bottom:.5rem}
+.case-desc{font-size:14px;color:#555;margin-bottom:1.5rem;line-height:1.6}
+.case-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:8px;margin-bottom:1.5rem}
+.case-metric{border-radius:8px;padding:.75rem 1rem;border:1px solid}
+.case-metric .cm-label{font-size:11px;opacity:.7;margin-bottom:2px}
+.case-metric .cm-val{font-size:16px;font-weight:500}
+.campaigns{display:flex;flex-direction:column;gap:10px}
+.camp{padding:12px 14px;border:1px solid #e8e8e8;border-radius:12px;background:#fff}
+.camp-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.camp-title{font-weight:500;font-size:13px;color:#111}
+.camp-link{font-size:11px;color:#aaa;text-decoration:none;flex-shrink:0}
+.camp-link:hover{color:#333}
+.camp-body{font-size:12px;color:#777;line-height:1.6}
+.note{font-size:11px;color:#bbb;margin-top:1rem;font-style:italic}
+/* skills */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.skill-cat{background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:1rem 1.1rem}
+.skill-cat-label{font-size:11px;font-weight:500;color:#aaa;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.skill-item{font-size:13px;color:#333;margin-bottom:6px;padding-left:10px;border-left:2px solid #eee;line-height:1.4}
+.footer-bar{margin-top:1.5rem;padding:14px 16px;background:#fff;border:1px solid #eee;border-radius:12px;font-size:13px;color:#aaa}
+.footer-bar a{color:#555;text-decoration:none}
+.footer-bar a:hover{color:#111}
+/* nav buttons */
+.nav-btns{display:flex;justify-content:space-between;margin-top:2rem;border-top:1px solid #eee;padding-top:1rem}
+.nav-btn{font-size:13px;padding:6px 18px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#555;cursor:pointer;transition:all .15s}
+.nav-btn:hover:not(:disabled){border-color:#999;color:#111}
+.nav-btn:disabled{opacity:.3;cursor:default}
+
+/* color themes — light versions */
+.t-purple .case-tag{background:#f0eeff;color:#5a45c0;border-color:#c9c0f0}
+.t-purple .case-metric{background:#f5f2ff;border-color:#d0c8f5;color:#3c3489}
+.t-purple .case-metric .cm-label{color:#7060c8}
+.t-teal .case-tag{background:#e6f7f0;color:#0d6e50;border-color:#90d8bc}
+.t-teal .case-metric{background:#eaf8f2;border-color:#9addc4;color:#085041}
+.t-teal .case-metric .cm-label{color:#0f8060}
+.t-coral .case-tag{background:#fdf0eb;color:#993c1d;border-color:#f0a888}
+.t-coral .case-metric{background:#fdf2ee;border-color:#f0b09a;color:#712b13}
+.t-coral .case-metric .cm-label{color:#c05030}
+.t-blue .case-tag{background:#eaf3fd;color:#185fa5;border-color:#90c0e8}
+.t-blue .case-metric{background:#ecf5fe;border-color:#9ac8f0;color:#0c447c}
+.t-blue .case-metric .cm-label{color:#2070b0}
+.t-amber .case-tag{background:#fef6e6;color:#7a4a08;border-color:#f0c870}
+.t-amber .case-metric{background:#fff8ea;border-color:#f0d080;color:#633806}
+.t-amber .case-metric .cm-label{color:#a06010}
+
+.r-purple{background:#f5f2ff;border-color:#c9c0f0;color:#3c3489}
+.r-purple .role-dot{background:#7060c8}
+.r-purple .role-title-txt{color:#7060c8}
+.r-purple .role-period{color:#9080d8}
+.r-teal{background:#eaf8f2;border-color:#9addc4;color:#085041}
+.r-teal .role-dot{background:#0f8060}
+.r-teal .role-title-txt{color:#0f8060}
+.r-teal .role-period{color:#3daa80}
+.r-blue{background:#ecf5fe;border-color:#9ac8f0;color:#0c447c}
+.r-blue .role-dot{background:#2070b0}
+.r-blue .role-title-txt{color:#2070b0}
+.r-blue .role-period{color:#4090c8}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="nav-tabs" id="tabs"></div>
+    <span class="pg" id="pg"></span>
+  </nav>
+  <div class="slide" id="slide"></div>
+  <div class="nav-btns">
+    <button class="nav-btn" id="prev" onclick="go(-1)">← prev</button>
+    <button class="nav-btn" id="next" onclick="go(1)">next →</button>
+  </div>
+</div>
+<script>
+const slides=[
+{id:"cover",type:"cover"},
+{id:"overview",type:"overview"},
+{id:"platypus",type:"case",color:"purple",tag:"Hailstone Labs · Avalanche",title:"Platypus Finance",role:"Social media & content strategist",desc:"Pioneer stableswap on Avalanche with novel single-sided AMM — positioned as the capital-efficient alternative to Curve Finance. Backed by Three Arrows Capital, DeFiance Capital & Hailstone Ventures.",metrics:[{l:"Peak TVL",v:"$1.2B"},{l:"Rank on Avalanche",v:"#1 stableswap"},{l:"NFT supply",v:"10,000"}],note:"X account no longer exists. Evidence via archived Medium, DeFiLlama & third-party coverage.",campaigns:[{t:"NFT launch — Platopia GameFi",b:"Reframed utility NFTs as yield workers, not JPEGs. Built tiered Priority Sale narrative for vePTP holders. 10,000-piece collection with A–D grade skill system.",u:"https://medium.com/platypus-finance/intro-to-platypus-nft-81351f00887a"},{t:"USP stablecoin launch",b:"Post-Terra messaging strategy: led with capital efficiency, not yield promises. Stakeholder-segmented copy for LPs, vePTP holders, and aggregator users (Echidna, Vector, Yield Yak).",u:"https://medium.com/platypus-finance/platypus-to-launch-native-stablecoin-usp-5f280c2ffd8c"},{t:"KOL — Ignas DeFi Research (~160K followers)",b:"Secured 2 organic features: NFT thread (Sept 2022) + paid Substack deep-dive on USP mechanics. Ignas covers protocols for technical merit, not payment — a top-tier credibility signal.",u:"https://www.ignasdefi.com/p/platypus-stablecoin-usp-what-you"}]},
+{id:"wombat",type:"case",color:"teal",tag:"Hailstone Labs · BNB Chain",title:"Wombat Exchange",role:"Social media strategist & community lead",desc:"Hyper-efficient multi-chain stableswap on BNB Chain — backed by Binance Labs, Animoca Brands, and Hailstone Ventures. $5.25M Series A.",metrics:[{l:"Peak TVL",v:"$200M+"},{l:"Meme entries",v:"260+"},{l:"Launchpad",v:"PancakeSwap IFO"}],campaigns:[{t:"Kudasai JP partnership",b:"Brokered full editorial AMA + 17-min Japanese deep-dive article with leading JP blockchain KOL community. Positioned Wombat vs Ellipsis to DeFi-native JP audience.",u:"https://medium.com/cryptokudasaijp/what-is-wombat-exchange-86955d6ababa"},{t:"@WombatIntern + @WombatZH sub-brands",b:"Created and managed two sub-brand accounts: a playful 'Intern' persona for English CT engagement and a Mandarin-language account (@WombatZH) for Chinese-speaking DeFi communities.",u:"https://x.com/WombatZH"},{t:"Meme contest — 260+ entries",b:"Co-branded with @BNBChain. Entry required tagging 2 friends + hashtags #NextGenStableswap #WombatMeme. Community voted on 20 shortlisted memes. Organic UGC at scale.",u:"https://x.com/WombatExchange/status/1531968813578735616"},{t:"Galxe OAT campaign",b:"Linked social tasks (follow, RT) to on-chain actions (swap, provide liquidity, stake WOM). Converted passive followers into wallet-connected protocol participants.",u:"https://app.galxe.com/quest/WombatExchange?sort=Trending"}]},
+{id:"sable",type:"case",color:"coral",tag:"CMO · BNB Chain + Arbitrum",title:"Sable Finance",role:"Chief Marketing Officer",desc:"Liquity fork on BNB Chain + Arbitrum. 0% interest borrowing, 110% collateral ratio, immutable contracts. Full CMO ownership of brand, social, and growth from pre-launch to TGE.",metrics:[{l:"Community vote",v:"67%+"},{l:"IFO raise target",v:"$780K"},{l:"Chains",v:"BNB + Arbitrum"}],campaigns:[{t:"PancakeSwap cIFO — TGE",b:"Won 67%+ of PancakeSwap community vote. $780K raise target. 8x CAKE farm rewards at launch. Managed full sequence: vote awareness → AMA → countdown → LP farming CTAs.",u:"https://x.com/PancakeSwap/status/1681952847783424000"},{t:"@Kaitlin_Sable — C-level personal brand",b:"Built and managed the founding team's Twitter persona. Positioned leadership as a credible voice in LSDfi and BNB DeFi to support BD and investor conversations.",u:"https://x.com/Kaitlin_Sable"},{t:"Stake-Fest — multi-protocol Galxe LP campaign",b:"Time-limited LP activation co-run with partner protocols on Galxe. Drove ecosystem cohesion narrative and produced on-chain wallet data for future BD targeting.",u:"https://x.com/SableFinance/status/1696484166567882960"},{t:"Beta launch + gamified X content",b:"Coordinated Beta mainnet launch content. Supplemented campaign cadence with interactive games on X — consistently outperformed standard announcement posts on engagement rate.",u:"https://x.com/SableFinance/status/1693964988468093329"}]},
+{id:"cobo",type:"case",color:"blue",tag:"BD Manager · Institutional",title:"Cobo",role:"BD Manager — institutional content & events",desc:"Singapore-based omni-custody platform trusted by 500+ institutions across 80+ chains. Authored institutional DeFi content and produced industry roundtables.",metrics:[{l:"Institutions served",v:"500+"},{l:"TVL via Argus",v:"$220M+"},{l:"Chains covered",v:"80+"}],campaigns:[{t:"Cobo Argus Substack — institutional newsletter",b:"Wrote and managed weekly strategy newsletters for Safe{Wallet} institutional users. Technical deep-dives including EigenLayer bot setup guides — content that directly self-qualified BD leads.",u:"https://coboargus.substack.com/p/cobo-argus-eigenlayer"},{t:"Event production — roundtables & panels",b:"'Borderless Payments' + 'Stablecoins & PayFi' events. Full end-to-end logistics: speaker & sponsor outreach, venue booking, AV & mic, signage, registration, and VIP seating.",u:"https://www.cobo.com/zh/post/borderless-payments-how-crypto-payments-are-reshaping-the-global-financial-system"}]},
+{id:"threshold",type:"case",color:"amber",tag:"Growth Lead · BTCFi · Multi-chain",title:"Threshold Network",role:"Growth Lead",desc:"tBTC — the most decentralised 1:1 tokenised Bitcoin enabling BTC liquidity across chains. Built KOL program, Korean market presence, and full on-chain growth stack from scratch.",metrics:[{l:"Peak TVL",v:"$785M"},{l:"Galxe impressions",v:"9.3M+"},{l:"Sui campaign participants",v:"85K+"}],campaigns:[{t:"Korea market — KBW Bitcoin & Brunch",b:"Built KOL program + Exilist agency partnership. Co-organised Bitcoin & Brunch at KBW 2025. Secured coverage in The Economist Korea, Seoul Economic Network, IT-Biz, The Korea Daily.",u:"https://www.threshold.network/blog/september-2025-recap-solidifying-position-in-the-btcfi-market/"},{t:"tBTC Odyssey on Sui — 85K+ participants",b:"Multi-quest Galxe campaign for tBTC's Sui Phase 2 launch. Quest 1 alone: 85K+ participants. Progressive funnel: social follow tasks → on-chain borrowing against tBTC collateral on Bucket Protocol.",u:"https://app.galxe.com/quest/Threshold/GCKPitmf4Y?ref=threshold.network"},{t:"Galxe Starboard — 9.3M+ impressions",b:"Long-term USDC-rewarded content contributor leaderboard. 400+ contributors, 3K+ quest task participants, 153K+ Galxe followers. KOL activation loop: content → on-chain action → leaderboard.",u:"https://app.galxe.com/quest/Threshold/starboard/755"},{t:"Multi-language KOL partnerships",b:"Stacy Muur (70K+ X, Starknet), @0x_xifeng (Chinese-language Starknet), @Alvin0617 (Sui launch), @0xCheeezzyyyy (general tBTC). Cookie3 used for KOL intelligence & attribution.",u:"https://x.com/0xCheeezzyyyy/status/2029184639668240596"}]},
+{id:"skills",type:"skills"}
+];
+
+const tabLabels={cover:"intro",overview:"overview",platypus:"platypus",wombat:"wombat",sable:"sable",cobo:"cobo",threshold:"threshold",skills:"skills"};
+let cur=0;
+
+function render(){
+  const s=slides[cur];
+  document.getElementById("pg").textContent=`${cur+1} / ${slides.length}`;
+  document.getElementById("prev").disabled=cur===0;
+  document.getElementById("next").disabled=cur===slides.length-1;
+  document.querySelectorAll(".tab").forEach((t,i)=>t.classList.toggle("active",i===cur));
+  const el=document.getElementById("slide");
+  el.className="slide"+(s.color?" t-"+s.color:"");
+  el.innerHTML=buildSlide(s);
+}
+
+function buildSlide(s){
+  if(s.type==="cover") return `
+    <div class="cover">
+      <div style="background:linear-gradient(135deg,#f0eeff 0%,#e6f7f0 50%,#fef6e6 100%);border-radius:16px;padding:2.5rem 2rem 2rem;margin-bottom:1.75rem;position:relative;overflow:hidden">
+        <div style="position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(160,140,240,0.12)"></div>
+        <div style="position:absolute;bottom:-30px;left:60px;width:120px;height:120px;border-radius:50%;background:rgba(13,110,80,0.08)"></div>
+        <p style="font-size:11px;color:#9080d8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;font-weight:500">web3 portfolio · 2022 – 2026</p>
+        <h1 style="font-size:38px;font-weight:500;color:#111;margin-bottom:.4rem;line-height:1.15">Isabella Yu<br><span style="color:#5a45c0">Wing Tung</span></h1>
+        <p style="font-size:16px;color:#444;margin-bottom:1.5rem;line-height:1.5">Social Media · Brand Strategy · KOL · Community Growth<br><span style="color:#0d6e50;font-weight:500">4+ years in DeFi · Hong Kong</span></p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="https://x.com/0xShinChannn" target="_blank" style="font-size:12px;padding:5px 14px;border-radius:20px;background:#5a45c0;color:#fff;text-decoration:none;font-weight:500">@0xShinChannn ↗</a>
+          <a href="https://0xshinchan.substack.com" target="_blank" style="font-size:12px;padding:5px 14px;border-radius:20px;background:#0d6e50;color:#fff;text-decoration:none;font-weight:500">Substack ↗</a>
+          <a href="https://x.com/yie1dclub" target="_blank" style="font-size:12px;padding:5px 14px;border-radius:20px;background:#7a4a08;color:#fff;text-decoration:none;font-weight:500">@yie1dclub ↗</a>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:1.5rem">
+        <div style="background:#f5f2ff;border:1px solid #c9c0f0;border-radius:12px;padding:1rem">
+          <p style="font-size:11px;color:#7060c8;margin-bottom:4px">peak TVL influenced</p>
+          <p style="font-size:24px;font-weight:500;color:#3c3489">$2B+</p>
+        </div>
+        <div style="background:#eaf8f2;border:1px solid #9addc4;border-radius:12px;padding:1rem">
+          <p style="font-size:11px;color:#0f8060;margin-bottom:4px">Galxe impressions</p>
+          <p style="font-size:24px;font-weight:500;color:#085041">9.3M+</p>
+        </div>
+        <div style="background:#fef6e6;border:1px solid #f0c870;border-radius:12px;padding:1rem">
+          <p style="font-size:11px;color:#a06010;margin-bottom:4px">campaign participants</p>
+          <p style="font-size:24px;font-weight:500;color:#633806">85K+</p>
+        </div>
+        <div style="background:#fdf0eb;border:1px solid #f0a888;border-radius:12px;padding:1rem">
+          <p style="font-size:11px;color:#c05030;margin-bottom:4px">protocols launched</p>
+          <p style="font-size:24px;font-weight:500;color:#712b13">5+</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="font-size:12px;padding:4px 12px;border-radius:20px;background:#f0eeff;color:#5a45c0;border:1px solid #c9c0f0">Platypus Finance · $1.2B TVL</span>
+        <span style="font-size:12px;padding:4px 12px;border-radius:20px;background:#eaf8f2;color:#0d6e50;border:1px solid #9addc4">Wombat Exchange · $200M TVL</span>
+        <span style="font-size:12px;padding:4px 12px;border-radius:20px;background:#fdf0eb;color:#993c1d;border:1px solid #f0a888">Sable Finance · CMO</span>
+        <span style="font-size:12px;padding:4px 12px;border-radius:20px;background:#ecf5fe;color:#185fa5;border:1px solid #9ac8f0">Cobo · Institutional</span>
+        <span style="font-size:12px;padding:4px 12px;border-radius:20px;background:#fff8ea;color:#7a4a08;border:1px solid #f0d080">Threshold Network · $785M TVL</span>
+      </div>
+    </div>`;
+
+  if(s.type==="overview") return `
+    <h2 class="section-title">Career overview</h2>
+    <div class="roles">
+      <div class="role-row r-purple"><div class="role-dot"></div><div class="role-info"><span class="role-company">Hailstone Labs</span><span class="role-title-txt">Assistant Manager</span></div><span class="role-period">Apr 2022 – Nov 2023</span></div>
+      <div class="role-row r-teal"><div class="role-dot"></div><div class="role-info"><span class="role-company">Cobo</span><span class="role-title-txt">BD Manager</span></div><span class="role-period">Nov 2023 – May 2025</span></div>
+      <div class="role-row r-blue"><div class="role-dot"></div><div class="role-info"><span class="role-company">Threshold Network</span><span class="role-title-txt">Growth Lead</span></div><span class="role-period">May 2025 – Mar 2026</span></div>
+    </div>
+    <div class="metrics-grid">
+      ${[{l:"Peak TVL influenced",v:"$2B+"},{l:"Galxe impressions",v:"9.3M+"},{l:"Campaign participants",v:"85K+"},{l:"Protocols launched",v:"5+"}].map(m=>`<div class="metric-card"><p class="metric-label">${m.l}</p><p class="metric-val">${m.v}</p></div>`).join("")}
+    </div>`;
+
+  if(s.type==="case") return `
+    <span class="case-tag">${s.tag}</span>
+    <h2 class="case-title">${s.title}</h2>
+    <p class="case-role">${s.role}</p>
+    <p class="case-desc">${s.desc}</p>
+    <div class="case-metrics">${s.metrics.map(m=>`<div class="case-metric"><p class="cm-label">${m.l}</p><p class="cm-val">${m.v}</p></div>`).join("")}</div>
+    <div class="campaigns">${s.campaigns.map(c=>`
+      <div class="camp">
+        <div class="camp-header">
+          <span class="camp-title">${c.t}</span>
+          ${c.u?`<a class="camp-link" href="${c.u}" target="_blank" rel="noreferrer">view ↗</a>`:""}
+        </div>
+        <p class="camp-body">${c.b}</p>
+      </div>`).join("")}
+    </div>
+    ${s.note?`<p class="note">${s.note}</p>`:""}`;
+
+  if(s.type==="skills") return `
+    <h2 class="section-title">Skills & tools</h2>
+    <div class="skills-grid">
+      ${[
+        {l:"Content & brand",items:["DeFi technical writing","Brand voice development","C-level personal branding","Fork & crisis narrative","Multi-language (EN/ZH)"]},
+        {l:"Growth & campaigns",items:["Galxe OAT / Starboard campaigns","Cookie3 KOL intelligence","On-chain funnel design","Meme & UGC campaigns","Testnet / mainnet launch comms"]},
+        {l:"Partnerships & KOL",items:["KOL sourcing & management","Regional market expansion (KR/JP/ZH)","PR & press distribution","CEX & launchpad coordination","AMA production"]},
+        {l:"Community & events",items:["Twitter / Telegram / Discord","Sub-brand account architecture","Industry roundtable production","Conference presence strategy","Institutional newsletter"]}
+      ].map(cat=>`
+        <div class="skill-cat">
+          <p class="skill-cat-label">${cat.l}</p>
+          ${cat.items.map(i=>`<p class="skill-item">${i}</p>`).join("")}
+        </div>`).join("")}
+    </div>
+    <div class="footer-bar">
+      Collateral examples → <a href="https://www.canva.com/design/DAGhbc35Qjs/Jg2NLMAxR81aeRVq_78Y7g/edit" target="_blank">Canva portfolio ↗</a> &nbsp;·&nbsp; <a href="https://0xshinchan.substack.com" target="_blank">Substack ↗</a>
+    </div>`;
+}
+
+function go(d){cur=Math.max(0,Math.min(slides.length-1,cur+d));render()}
+
+const tabs=document.getElementById("tabs");
+slides.forEach((s,i)=>{
+  const b=document.createElement("button");
+  b.className="tab";
+  b.textContent=tabLabels[s.id];
+  b.onclick=()=>{cur=i;render()};
+  tabs.appendChild(b);
+});
+render();
+</script>
+</body>
+</html>
